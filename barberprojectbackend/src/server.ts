@@ -1,15 +1,16 @@
-import express from 'express'
+import 'reflect-metadata';
+import {createConnectionDefault} from './database/index'
+import express, { request, response } from 'express'
+import { router } from './routes';
 
 const app = express();
 
+createConnectionDefault();
+
 app.use(express.json())
 
-app.get("/", (request, response) => {
-  response.setHeader('Access-Control-Allow-Origin', '*');
-  return response.json({
-    message: "PIETRO"
-  })
-})
+app.use(router);
+
 
 app.listen(3333, () => {
   console.log("Server started!")
