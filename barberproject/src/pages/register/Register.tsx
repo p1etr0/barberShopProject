@@ -1,30 +1,42 @@
 import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import './Register.css';
 
 
-interface IBarber {
-  nome: string;
-  email: string;
-  dtnasc: string;
-  senha: string;
-}
+// interface IBarber {
+//   nome: string;
+//   email: string;
+//   dtnasc: string;
+//   senha: string;
+// }
 
-const baseURL = "http://localhost:3333/barber";
+const baseURL = "http://localhost:3333/barber/";
 
 export function Register() {
-  const [post, setPost] = useState<IBarber>();
+  // const [post, setPost] = useState<IBarber>();
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [dtnasc, setDtnasc] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const history = useHistory();
 
 
-  async function createPost() {
+  async function handleSubmit() {
     
-
-
-
-    // await axios.post(baseURL, post)
-    //   .then((response) => {
-    //     setPost(response.data);
-    //   });
+    await axios.post(baseURL, {
+      nome,
+      email,
+      dtnasc,
+      senha,
+    }).then((response) => {
+        routeChange()
+      });
+  }
+  
+  async function routeChange(){ 
+    history.push("/");
   }
 
   return (
@@ -38,6 +50,8 @@ export function Register() {
               <input
                 id="inputname"
                 className="input"
+                // value={post?.nome}
+                onChange={e => setNome(e.target.value)}
                 placeholder="DIGITE SEU NOME">
               </input>
             </span>
@@ -46,6 +60,7 @@ export function Register() {
               <input
                 id="email"
                 className="input"
+                onChange={e => setEmail(e.target.value)}
                 placeholder="DIGITE SEU E-MAIL">
               </input>
             </span>
@@ -55,6 +70,7 @@ export function Register() {
               <input
                 id="dtnasc"
                 className="input"
+                onChange={e => setDtnasc(e.target.value)}
                 placeholder="XX-XX-XXXX">
               </input>
             </span>
@@ -63,12 +79,14 @@ export function Register() {
               <input
                 id="senha"
                 className="input"
+                onChange={e => setSenha(e.target.value)}
                 placeholder="XXXXXXXX">
               </input>
             </span>
             <button 
+              type = "button"
               className = "cadastrar"
-              onClick={createPost}
+              onClick={handleSubmit}
             >
               Cadastrar
             </button>

@@ -15,11 +15,13 @@ barberRoutes.get("/", async (request, response) => {
 })
 
 barberRoutes.post("/", async (request, response) =>{
-  const {nome, email, dtnasc} = request.body;
+  const {nome, email, dtnasc, senha} = request.body;
+  
   const newBarber = {
     nome,
     email,
-    dtnasc
+    dtnasc,
+    senha
   }
   const barber = await barberRepository.create(newBarber);
 

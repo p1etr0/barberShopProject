@@ -7,6 +7,7 @@ interface IBarber{
   nome: string;
   email: string;
   dtnasc: string;
+  senha: string;
 }
 
 
@@ -18,7 +19,7 @@ class BarberRepository{
     return barbeiro;
   }
 
-  async create({nome, email, dtnasc}: IBarber){
+  async create({nome, email, dtnasc, senha}: IBarber){
     const emailAlreadyExists = await getRepository(Barbeiro, "default").findOne({email: email});
 
     if(emailAlreadyExists){
@@ -29,8 +30,10 @@ class BarberRepository{
       id: uuidV4(),
       nome,
       email,
-      dtnasc
+      dtnasc,
+      senha
     };
+
 
     await getRepository(Barbeiro, "default").save(barber);
   }

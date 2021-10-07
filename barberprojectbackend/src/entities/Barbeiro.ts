@@ -15,6 +15,9 @@ class Barbeiro {
   @Column()
   dtnasc: string;
 
+  @Column()
+  senha: string;
+
   constructor(){
     if(!this.id){
       this.id = uuidV4();
