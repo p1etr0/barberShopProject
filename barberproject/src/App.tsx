@@ -1,38 +1,20 @@
-import React, { Component } from 'react';
-import './App.css';
-import axios from 'axios'
+import {  BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {Welcome} from './pages/welcome/Welcome'
+import {Login} from './pages/login/Login'
+import {Register} from './pages/register/Register'
 
-class App extends Component {
+function App() {
 
-  private api = axios.create({
-    baseURL: "http://localhost:3333/"
-  })
-
-  state = {
-    message: '',
-  }
-
-  async componentDidMount(){
-    const response = await this.api.get("/");
-    this.setState(response.data, () => {});
-  }
-  
-
-  render(){
-    const { message } = this.state;
-    console.log(message);
-    
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            {message} teste
-          </p>
-          
-        </header>
-      </div>
-    );
-  }
+  return (
+    <Router>
+        <Switch>
+          <Route path="/" exact component={Login}/>
+          <Route path="/cadastrobarber" exact component={Register}/>
+          <Route path="/welcome" component={Welcome}/>
+          {/* <Route path="/admin/rooms/:id" component={AdminRoom}/> */}
+        </Switch>
+    </Router>
+  );
 }
 
 export default App;

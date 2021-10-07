@@ -1,9 +1,10 @@
+import {v4 as uuidV4} from 'uuid'
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity("eventos")
 export default class Eventos {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  id?: string;
 
   @Column()
   idcliente: string;
@@ -13,4 +14,10 @@ export default class Eventos {
 
   @Column()
   idprocedimento: string;
+
+  constructor(){
+    if(!this.id){
+      this.id = uuidV4();
+    }
+  }
 }

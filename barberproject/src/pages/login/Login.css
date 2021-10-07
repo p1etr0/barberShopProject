@@ -1,0 +1,97 @@
+.Login {
+  text-align: center;
+}
+
+
+.Login-body {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.formLogin{
+  height: 100%;
+  width: 40%;
+  align-items: center;
+}
+
+.email{
+  display: flex;
+  flex-direction: column;
+  margin: 4%;
+  text-align: left;
+
+}
+
+#inputemail{
+  margin-top: 2%;
+  height: 2rem;
+  border: 1px solid black;
+  outline: none;
+  text-indent: 2%;
+  border-radius: 8px;
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+
+.senha{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 4%;
+}
+
+#inputsenha{
+  margin-top: 2%;
+  height: 2rem;
+  border: 1px solid black;
+  outline: none;
+  text-indent: 2%;
+  border-radius: 8px;
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+
+.botoes{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  margin: 4%;
+}
+
+.button{
+  margin: 2%;
+  border: 1px solid violet;
+  border-radius: 8px;
+  width: 20vw;
+  height: 5vh;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+#buttonentrar:hover{
+  background-color:  violet;
+}
+
+#buttoncadastrar{
+  background-color:  grey;
+}
+#buttoncadastrar:hover{
+  background-color:  white;
+  color: black;
+}
+
+.Login-link {
+  color: #61dafb;
+}
+
+
+

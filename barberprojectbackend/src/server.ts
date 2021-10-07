@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import {createConnectionDefault} from './database/index'
-import express, { request, response } from 'express'
+import express, { request, response, NextFunction } from 'express'
 import { router } from './routes';
 
 const app = express();
@@ -13,5 +13,9 @@ app.use(router);
 
 
 app.listen(3333, () => {
-  console.log("Server started!")
+  console.log("Server started! 🚀")
 })
+
+function cors(): any {
+  throw new Error('Function not implemented.');
+}

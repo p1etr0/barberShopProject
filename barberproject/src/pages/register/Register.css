@@ -1,0 +1,72 @@
+.Register {
+  text-align: center;
+}
+
+.Register-body {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.formRegister{
+  height: 95vh;
+  width: 90vh;
+}
+
+.name{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 4%;
+}
+.email{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 4%;
+}
+
+.dtnasc{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 4%;
+}
+
+.senha{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin: 4%;
+}
+
+.input{
+  margin-top: 2%;
+  height: 2rem;
+  border: 1px solid black;
+  outline: none;
+  text-indent: 2%;
+  border-radius: 8px;
+  line-height: 1.5rem;
+  font-size: 1rem;
+}
+
+.cadastrar{
+  margin: 2%;
+  border: 1px solid violet;
+  border-radius: 8px;
+  width: 20vw;
+  height: 5vh;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+.cadastrar:hover{
+  background-color: violet;
+}
