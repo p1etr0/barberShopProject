@@ -4,17 +4,9 @@ import axios from "axios";
 import './Register.css';
 
 
-// interface IBarber {
-//   nome: string;
-//   email: string;
-//   dtnasc: string;
-//   senha: string;
-// }
-
 const baseURL = "http://localhost:3333/barber/";
 
 export function Register() {
-  // const [post, setPost] = useState<IBarber>();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [dtnasc, setDtnasc] = useState('');
@@ -23,7 +15,7 @@ export function Register() {
   const history = useHistory();
 
 
-  async function handleSubmit() {
+  async function handleSubmitForm() {
     
     await axios.post(baseURL, {
       nome,
@@ -31,12 +23,9 @@ export function Register() {
       dtnasc,
       senha,
     }).then((response) => {
-        routeChange()
-      });
-  }
-  
-  async function routeChange(){ 
-    history.push("/");
+      history.push("/");
+    });
+    
   }
 
   return (
@@ -50,7 +39,6 @@ export function Register() {
               <input
                 id="inputname"
                 className="input"
-                // value={post?.nome}
                 onChange={e => setNome(e.target.value)}
                 placeholder="DIGITE SEU NOME">
               </input>
@@ -77,6 +65,7 @@ export function Register() {
             <span className="senha">
               Senha
               <input
+                name="senha"
                 id="senha"
                 className="input"
                 onChange={e => setSenha(e.target.value)}
@@ -86,7 +75,7 @@ export function Register() {
             <button 
               type = "button"
               className = "cadastrar"
-              onClick={handleSubmit}
+              onClick={handleSubmitForm}
             >
               Cadastrar
             </button>
@@ -97,4 +86,3 @@ export function Register() {
   );
 }
 
-export default Register;

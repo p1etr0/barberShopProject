@@ -1,0 +1,100 @@
+.Appointments {
+  text-align: center;
+}
+
+
+.Appointments-body {
+  font-size: 2rem;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: start;
+  color: white;
+}
+
+
+.cadastro{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  padding-left: 4%;
+}
+
+.input-cliente{
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 24vw;  
+  height: 6vh;
+  padding-left: 1%;
+  font-size: 1.1rem;
+}
+
+.selecao-proc{
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 18vw;  
+  height: 6vh;
+  padding-left: 1%;
+  margin-left: 2%;
+  font-size: 1.1rem;
+}
+.selecao-horarios{
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 18vw;  
+  height: 6vh;
+  padding-left: 1%;
+  margin-left: 2%;
+  font-size: 1.1rem;
+}
+
+
+
+.button-cadevento{
+  margin: 2%;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 16vw;
+  height: 6vh;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+.button-cadevento:hover{
+  background-color: whitesmoke;
+  color: black;
+}
+
+
+.List{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin: 2%;
+}
+
+.Appointments{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.Calendar{
+}
+
+
+.Appointment-item{
+  border: 1px solid white;
+  width: 70%;
+  font-size: 1.5rem;
+  padding:0.5%;
+  margin-bottom: 1%;
+  border-radius: 8px;
+  margin-left: 2%;
+}

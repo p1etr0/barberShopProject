@@ -1,4 +1,5 @@
 import { response } from 'express';
+import {hash} from 'bcryptjs'
 import { getRepository, Repository, getConnectionManager, getConnection, Connection, createConnection } from 'typeorm';
 import {Barbeiro} from '../../entities/Barbeiro';
 import {v4 as uuidV4} from 'uuid'
@@ -26,14 +27,19 @@ class BarberRepository{
       throw new Error("Usuario já existe");
     }
 
+    if(senha.length != 8){
+      throw new Error("Senha com tamanho diferente de 8");
+    }
+
+    const password = await hash(senha, 8);
+    
     const barber = {
       id: uuidV4(),
       nome,
       email,
       dtnasc,
-      senha
+      senha: password
     };
-
 
     await getRepository(Barbeiro, "default").save(barber);
   }
