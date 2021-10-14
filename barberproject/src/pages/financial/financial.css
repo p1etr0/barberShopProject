@@ -1,0 +1,26 @@
+.Financial {
+  
+}
+
+
+.Financial-body {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Financial-item{
+  border: 1px solid white;
+  width: 70%;
+  font-size: 1.5rem;
+  padding:0.5%;
+  margin-bottom: 1%;
+  border-radius: 8px;
+  margin-left: 2%;
+}
