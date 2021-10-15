@@ -23,7 +23,7 @@ export function Register() {
       dtnasc,
       senha,
     }).then((response) => {
-      history.push("/");
+      history.push("/bemvindo");
     });
     
   }

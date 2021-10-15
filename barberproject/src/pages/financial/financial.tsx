@@ -1,27 +1,45 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './financial.css';
 
+const baseURL = 'http://localhost:3333/entradas'
+
+type IEntrada = [{
+  descricao: string,
+  valor: string,
+  idbarber: string;
+}]
+
 export function Financial() {
-  const entradas = [
-    {descricao: 'sdasda', valor: 20, barber: 'sadasd'},
-    {descricao: 'dasdsa', valor: 60, barber: 'dsads'},
-  ];
+
+  const [entradas, setEntradas] = useState<IEntrada>()
 
   function soma(){
     let soma = 0;
-    entradas.map((entrada) => {
-      soma += entrada.valor
+    entradas?.map((entrada) => {
+      let valor = parseInt(entrada.valor)
+      soma += valor
     })
     return soma
   }
 
+ 
+  useEffect(() => {
+    axios.get(baseURL).then((response) => {
+      
+      setEntradas(response.data)
+    })
+  })
+  
+  
   return (
     <div className="Financial">
       <body className="Financial-body">
         <h2>Entradas</h2>
         <div className="Financial-item"><b>Descricao</b>  |  <b>Valor</b>  |  <b>Responsável</b></div>
-          {entradas.map((entradas) => (
-            <div className="Financial-item">{entradas.valor}</div>
-          ))}
+        {entradas?.map((entrada) => (
+          <div className="Financial-item">{entrada.descricao}  |  {entrada.valor}  |  {entrada.idbarber}</div>
+        ))}
         
           <div className="soma">
             Total Entradas: {soma()}

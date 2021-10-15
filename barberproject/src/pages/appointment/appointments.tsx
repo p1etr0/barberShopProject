@@ -1,40 +1,83 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Calendar from 'react-calendar'
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 
 
 import 'react-calendar/dist/Calendar.css';
 import './appointment.css'
+import axios from 'axios';
 
-type IList  = {
-  id: number,
-  nome: string,
-  procedimento: string,
-  valor: string
+type IEvent  = {
+  idcliente: string,
+  idbarbeiro: string,
+  idprocedimento: string,
 }
 
-export function Appointments(){
-  const [list, setList] = useState<IList[]>([
-    {id: 1, nome: 'Teste 1', procedimento: 'Cabelo', valor: 'R$ 40,00'},
-  ]);
+type ICliente = {
+  idbarbeiro: string,
+  idcliente: string,
+  idprocedimento: string,
+}
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+const baseURLCliente = "http://localhost:3333/clientes/";
+const baseURLEventos = "http://localhost:3333/eventos/";
+
+
+export function Appointments(){
+  
+  const [events, setEvents] = useState<IEvent[]>();
   const [cliente, setCliente] = useState('');
-  const [procedimento, setProcedimento] = useState('Cabelo | R$ 40,00');
+  const [nome, setNome] = useState('');
+  const [cpf, setCPF] = useState('');
+  const [dtnasc, setDtnasc] = useState('');
   const [horario, setHorario] = useState('');
   const [date, newDate] = useState(new Date());
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function novoEvento (){
-    if(cliente === '') return;
-    
-    let Evento = {
-      id: list.slice(-1)[0].id + 1,
-      nome: cliente,
-      procedimento: procedimento.split("|")[0].trim(),
-      valor: procedimento.split("|")[1].trim()
-    }
-
-    let newEventos = [...list, Evento]
-    setList(newEventos)
+  function openModal() {
+    setIsOpen(true);
   }
+
+  function afterOpenModal() {
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  
+
+  async function handleSubmitCliente() {
+    await axios.post(baseURLCliente, {
+      nome,
+      cpf,
+      dtnasc,
+    }).then((response) => {
+      closeModal()
+    });
+  }
+
+  
+  
+
+  useEffect(() => {
+    axios.get(baseURLEventos).then((response) => {
+
+      setEvents(response.data)
+    });
+  })
 
   
 
@@ -47,7 +90,7 @@ export function Appointments(){
           placeholder="Cliente"
           onChange={e => setCliente(e.target.value)}
         ></input>
-        <select className="selecao-proc" id="procedimentos" onChange={e => setProcedimento(e.target.value)}>
+        <select className="selecao-proc" id="procedimentos">
           <option className="option-proc">Cabelo | R$ 40,00</option>
           <option className="option-proc">Barba | R$ 25,00</option>
           <option className="option-proc">Cabelo e Barba | R$ 60,00</option>
@@ -57,18 +100,44 @@ export function Appointments(){
           <option className="option-event">17/10/2021</option>
           <option className="option-event">18/10/2021</option>
         </select>
-        <button className="button-cadevento" onClick={novoEvento}>Inserir</button>
+        <button className="button-cadevento" >Inserir</button>
+        <button className="button-cadevento" onClick={openModal} >Cadastrar Cliente</button>
+        <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+          <h2>Cadastrar Cliente</h2>
+          <form className="form-modal">
+            <input className="input-modal" 
+            placeholder="Nome"
+            onChange={e => setNome(e.target.value)}
+            ></input>
+            <input className="input-modal" 
+            placeholder="Data de Nascimento"
+            onChange={e => setDtnasc(e.target.value)}
+            ></input>
+            <input className="input-modal" 
+            placeholder="CPF"
+            onChange={e => setCPF(e.target.value)}
+            ></input>
+            <button className="button-cadastrar-cliente" onClick={handleSubmitCliente}>Cadastrar</button>
+            <button onClick={closeModal} className="button-fechar">Fechar</button>
+          </form>
+        </Modal>
        </div>
        <div className="hoje">
-         <h2>{date.toLocaleDateString('pt-br')}</h2>
+         <h3>{date.toLocaleDateString('pt-br')}</h3>
        </div>
        <div className="List">
          <div className="Appointments">
+         <div className="Appointment-item"> <b>Cliente</b>  |  <b>Procedimento</b></div>
+            {events?.map((event) => (
+              <div className="Appointment-item"> {event.idcliente} | {event.idprocedimento} </div>
+            ))}
            
-          {list.map((item, index) => (
-            <div className="Appointment-item">({item.id}) - {item.nome} | {item.procedimento} | {item.valor}</div>
-          ))}
-
          </div>
          <div className="Calendar">
           <Calendar 

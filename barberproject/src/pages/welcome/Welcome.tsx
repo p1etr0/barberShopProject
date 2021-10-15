@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './Welcome.css';
 import axios from 'axios'
 
-interface IBarber {
-  nome: string;
-  email: string;
-  dtnasc: string;
+interface IBarber  {
+  nome: string, 
+  email: string, 
+  dtnasc: string,
 }
+
 
 export function Welcome() {
 
@@ -16,11 +17,14 @@ export function Welcome() {
   
   useEffect(() => {
     axios.get(api).then((response) => {
-      console.log(response.data);
+
+      const ultimo = Object.keys(response.data).length-1
       
-      setNewBarber(response.data[0]);
+      setNewBarber(response.data[ultimo]);
     });
   }, []);
+  
+  
   
 
   return (
@@ -30,6 +34,7 @@ export function Welcome() {
           Bem vindo {barber?.nome}
         </h3>
         <p>Estamos carregando seus agendamentos ⏳</p>
+        {() => {}}
       </header>
     </div>
   );
