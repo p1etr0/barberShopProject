@@ -15,7 +15,3 @@ app.use(router);
 app.listen(3333, () => {
   console.log("Server started! 🚀")
 })
-
-function cors(): any {
-  throw new Error('Function not implemented.');
-}

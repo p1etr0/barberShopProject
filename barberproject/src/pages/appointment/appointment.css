@@ -70,6 +70,24 @@
   color: black;
 }
 
+.button-movimentacao{
+  margin: 2%;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 16vw;
+  height: 6vh;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: white;
+  background-color: purple;
+
+}
+
+.button-movimentacao:hover{
+  background-color: whitesmoke;
+  color: black;
+}
+
 .button-cadastrar-cliente{
   margin: 2%;
   border: 1px solid black;

@@ -24,6 +24,8 @@ export function Register() {
       senha,
     }).then((response) => {
       history.push("/bemvindo");
+      setTimeout(()=>{history.push("/eventos")}, 5000)
+      
     });
     
   }

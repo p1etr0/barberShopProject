@@ -3,21 +3,27 @@ import Calendar from 'react-calendar'
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 
-
 import 'react-calendar/dist/Calendar.css';
 import './appointment.css'
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 type IEvent  = {
   idcliente: string,
   idbarbeiro: string,
   idprocedimento: string,
 }
+type IProcedimentos  = {
+  id: string,
+  nome: string,
+  duracao: string,
+  valor: string,
+}
 
-type ICliente = {
-  idbarbeiro: string,
-  idcliente: string,
-  idprocedimento: string,
+type IClientes = {
+  nome: string,
+  cpf: string,
+  dtnasc: string,
 }
 
 const customStyles = {
@@ -33,18 +39,21 @@ const customStyles = {
 
 const baseURLCliente = "http://localhost:3333/clientes/";
 const baseURLEventos = "http://localhost:3333/eventos/";
+const baseURLProcedimentos = "http://localhost:3333/procedimentos/";
 
 
 export function Appointments(){
   
   const [events, setEvents] = useState<IEvent[]>();
-  const [cliente, setCliente] = useState('');
+  const [procedimentos, setProcedimentos] = useState<IProcedimentos[]>();
+  const [clientes, setClientes] = useState<IClientes[]>();
   const [nome, setNome] = useState('');
   const [cpf, setCPF] = useState('');
   const [dtnasc, setDtnasc] = useState('');
   const [horario, setHorario] = useState('');
   const [date, newDate] = useState(new Date());
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const history = useHistory();
 
   function openModal() {
     setIsOpen(true);
@@ -74,11 +83,20 @@ export function Appointments(){
 
   useEffect(() => {
     axios.get(baseURLEventos).then((response) => {
-
+      
       setEvents(response.data)
     });
-  })
 
+    axios.get(baseURLProcedimentos).then((response) => {
+      
+      setProcedimentos(response.data)
+    });
+    
+    axios.get(baseURLCliente).then((response) => {
+      
+      setClientes(response.data)
+    });
+  }, [])
   
 
   return(
@@ -86,14 +104,15 @@ export function Appointments(){
       <body className="Appointments-body">
        <h3>Agenda - Pietro</h3>
        <div className="cadastro">
-        <input className="input-cliente" 
-          placeholder="Cliente"
-          onChange={e => setCliente(e.target.value)}
-        ></input>
+        <select className="input-cliente" id="input-cliente">
+          {clientes?.map((cliente) => (
+            <option className="option-proc">{cliente.nome}</option>
+          ))}
+        </select>
         <select className="selecao-proc" id="procedimentos">
-          <option className="option-proc">Cabelo | R$ 40,00</option>
-          <option className="option-proc">Barba | R$ 25,00</option>
-          <option className="option-proc">Cabelo e Barba | R$ 60,00</option>
+          {procedimentos?.map((procedimento) => (
+            <option className="option-proc">{procedimento.nome} | R$ {procedimento.valor}.00</option>
+          ))}
         </select>
         <select className="selecao-horarios" id="horarios" onChange={e => setHorario(e.target.value)}>
           <option className="option-event">16/10/2021</option>
@@ -102,6 +121,7 @@ export function Appointments(){
         </select>
         <button className="button-cadevento" >Inserir</button>
         <button className="button-cadevento" onClick={openModal} >Cadastrar Cliente</button>
+        <button className="button-movimentacao" onClick={() => {history.push('./financeiro')}} >Financeiro</button>
         <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
